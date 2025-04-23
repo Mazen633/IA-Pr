@@ -5,13 +5,13 @@ import logo from "../../assests/images/logo.png";
 export const Header = () => {
   return (
     <header className="flex justify-between items-center py-4 px-8 bg-[#1a1a1a]">
-      {/* LOGO */}
+    
       <div className="flex items-center gap-2">
-        <img src={logo} className="h-8 w-8" alt="Restro logo" /> {/* إضافة نص بديل للصورة */}
+        <img src={logo} className="h-8 w-8" alt="Restro logo" /> 
         <h1 className="text-lg font-semibold text-[#f5f5f5]">Restro</h1>
       </div>
 
-      {/* SEARCH */}
+    
       <div className="flex items-center gap-4 bg-[#1f1f1f] rounded-[20px] px-5">
         <input
           type="text"
@@ -21,7 +21,7 @@ export const Header = () => {
         <FaSearch className="text-[#f5f5f5]" />
       </div>
 
-      {/* Logged User Details */}
+     
       <div className="flex items-center gap-2">
         <div className="bg-[#1f1f1f] p-2 rounded-full">
           <FaBell className="text-[#f5f5f5] text-2xl" />

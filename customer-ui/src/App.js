@@ -7,7 +7,6 @@ import MenuPage from './Pages/MenuPage';
 import OrderPage from './Pages/OrderPage';
 import ReservationPage from './Pages/ReservationPage';
 import ReviewPage from './Pages/ReviewPage';
-import Contact from './Pages/Contact';
 import {Header} from './comments/shared/Header';
 
 
@@ -23,7 +22,6 @@ function App() {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/reservations" element={<ReservationPage />} />
         <Route path="/reviews" element={<ReviewPage />} />
-        <Route path="/contact" element={<Contact />} /> 
       </Routes>
     </Router>
   );
