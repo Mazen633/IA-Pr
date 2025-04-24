@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiNoodles, GiHamburger, GiPizzaSlice } from 'react-icons/gi';
 
 const Services = () => {
-  const services = [
+  const serviceList = [
     {
       id: 1,
       icon: <GiNoodles className="text-4xl mx-auto mb-4 text-amber-500" />,
@@ -35,11 +35,10 @@ const Services = () => {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 relative">
           Our Services
-          
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service) => (
+          {serviceList.map((service) => (
             <div 
               key={service.id}
               className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group"

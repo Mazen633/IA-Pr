@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import FooterNav from '../comments/shared/FooterNav';
-import ServicesSection from '../comments/shared/Services';
+import Services from '../comments/shared/Services';
 
 const Home = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const Home = () => {
       <div className="flex-grow flex flex-col items-center p-4">
         <h1 className="text-3xl font-bold text-center mb-8">PASTA  , BURGER  & PIZZA RESTAURANT</h1>
 
-        {/* Hero Image */}
+       
         <div className="w-full max-w-5xl mb-6">
           <img
             src="/images/Pasters.jpg"
@@ -31,7 +31,7 @@ const Home = () => {
 
      
 
-        {/* Menu Section */}
+       
         <div
           className="w-full max-w-5xl mb-6 relative rounded-3xl overflow-hidden"
           style={{
@@ -59,7 +59,7 @@ const Home = () => {
           />
         </div>
 
-        {/* Table Reservations Section */}
+       
         <div
           className="w-full max-w-5xl mb-6 relative rounded-3xl overflow-hidden"
           style={{
@@ -87,7 +87,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
+        
         <div
           className="w-full max-w-5xl mb-6 relative rounded-3xl overflow-hidden"
           style={{
@@ -107,7 +107,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Orders Section */}
+       
         <div
           className="w-full max-w-5xl mb-6 relative rounded-3xl overflow-hidden"
           style={{
@@ -130,7 +130,7 @@ const Home = () => {
 
       {/* Footer */}
       <FooterNav />
-      <ServicesSection />
+      <Services />
     </div>
   );
 };
