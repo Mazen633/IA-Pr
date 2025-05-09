@@ -4,9 +4,8 @@ import {
   FiHome,
   FiShoppingCart,
   FiMenu,
-  FiClock,
-  FiTool
-} from 'react-icons/fi';
+  FiTool,
+} from 'react-icons/fi'; 
 
 const FooterNav = () => {
   const location = useLocation();
@@ -51,16 +50,6 @@ const FooterNav = () => {
             <span className="text-[0.5rem] mt-0.5">Menu</span>
           </Link>
 
-          {/* Reservation */}
-          <Link
-            to="/reservation"
-            onClick={scrollToTop}
-            className={`flex flex-col items-center p-1 ${isActive('/reservation') ? 'text-amber-400' : 'text-gray-300 hover:text-amber-400'}`}
-          >
-            <FiClock className="text-sm" />
-            <span className="text-[0.5rem] mt-0.5">Book</span>
-          </Link>
-
           {/* Services */}
           <Link
             to="/services"
@@ -70,6 +59,8 @@ const FooterNav = () => {
             <FiTool className="text-sm" />
             <span className="text-[0.5rem] mt-0.5">Services</span>
           </Link>
+
+         
         </nav>
       </div>
     </footer>

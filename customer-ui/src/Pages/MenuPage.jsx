@@ -1,79 +1,188 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+
+const categories = [
+  { 
+    name: 'Burgers', 
+    dishes: [
+      { 
+        name: 'House Burger', 
+        description: 'BEEF BURGER, CHEDDAR, LETTUCE, TOMATO, PICKLES, KETCHUP, MAYO, MUSTARD',
+        price: 9.80, 
+        image: '/images/HouseBurger.jpg' 
+      },
+      { 
+        name: 'Veggie Burger', 
+        description: 'FALAFEL BURGER, HUMMUS, ROCKET, TOMATO, ONIONS',
+        price: 9.80, 
+        image: '/images/VeggieBurger.jpg' 
+      },
+      { 
+        name: 'Smash Burger', 
+        description: 'SMASHED GROUND BEEF, CHEDDAR, PICKLES, ONIONS, KETCHUP AND MUSTARD',
+        price: 8.80, 
+        image: '/images/SmashBurger.jpg' 
+      }
+    ]
+  },
+  { 
+    name: 'Pasta', 
+    dishes: [
+      { 
+        name: 'Spaghetti Carbonara', 
+        description: 'CLASSIC ROMAN PASTA WITH EGG, PECORINO CHEESE, PANCETTA, AND BLACK PEPPER',
+        price: 12.50, 
+        image: '/images/carbonara.jpg' 
+      },
+      { 
+        name: 'Penne Arrabbiata', 
+        description: 'PENNE WITH SPICY TOMATO SAUCE, GARLIC, AND CHILI PEPPERS',
+        price: 11.80, 
+        image: '/images/Arrabbiata.jpg' 
+      }
+    ]
+  },
+  { 
+    name: 'Pizza', 
+    dishes: [
+      { 
+        name: 'Margherita', 
+        description: 'TOMATO SAUCE, MOZZARELLA, BASIL',
+        price: 12.99,
+        image: '/images/Margherita.jpg',
+        sizes: [
+          { name: 'Small (10")', price: 10.99 },
+          { name: 'Medium (12")', price: 12.99 },
+          { name: 'Large (14")', price: 14.99 }
+        ]
+      },
+      { 
+        name: 'Pepperoni', 
+        description: 'TOMATO SAUCE, MOZZARELLA, PEPPERONI',
+        price: 14.99,
+        image: '/images/Pepperoni.jpg',
+        sizes: [
+          { name: 'Small (10")', price: 12.99 },
+          { name: 'Medium (12")', price: 14.99 },
+          { name: 'Large (14")', price: 16.99 }
+        ],
+        spicy: true
+      },
+      { 
+        name: 'Vegetarian', 
+        description: 'TOMATO SAUCE, MOZZARELLA, BELL PEPPERS, MUSHROOMS, OLIVES',
+        price: 13.99,
+        image: '/images/Vegetarian.jpg',
+        sizes: [
+          { name: 'Small (10")', price: 11.99 },
+          { name: 'Medium (12")', price: 13.99 },
+          { name: 'Large (14")', price: 15.99 }
+        ],
+        vegetarian: true
+      }
+    ]
+  },
+  { 
+    name: 'Box Choice', 
+    dishes: [
+      { 
+        name: 'Loaded Fries', 
+        description: 'CRISPY FRIES TOPPED WITH MELTED CHEESE SAUCE, BACON BITS',
+        price: 7.50, 
+        image: '/images/Loaded.jpg' 
+      },
+      { 
+        name: 'Spicy Bag', 
+        description: 'CHILLI CHICKEN SHREDDERS, PEPPER, ONIONS, JALAPENO, SHREDDED CHEESE, CRISPY FRIES',
+        price: 7.50, 
+        image: '/images/SpiceBag.jpg',
+        spicy: true
+      },
+      { 
+        name: 'Regular Fries', 
+        description: 'CLASSIC CRISPY FRIES',
+        price: 4.50, 
+        image: '/images/RegularFries.jpg' 
+      },
+      { 
+        name: 'Sweet Potato Fries', 
+        description: 'CRISPY SWEET POTATO FRIES',
+        price: 5.00, 
+        image: '/images/SweetFries.jpg' 
+      }
+    ]
+  }
+];
 
 const MenuPage = () => {
-  const [menuItems, setMenuItems] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-
-  useEffect(() => {
-    fetchCategories();
-    fetchMenuItems();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get('/api/categories'); 
-      setCategories(response.data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-  };
-
-  const fetchMenuItems = async () => {
-    try {
-      const response = await axios.get('/api/menu');
-      setMenuItems(response.data);
-    } catch (error) {
-      console.error('Error fetching menu:', error);
-    }
-  };
-
-  const filteredItems = menuItems.filter((item) => {
-    const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center">Our Menu</h1>
+      <h1 className="text-3xl font-bold mb-6">Our Menu</h1>
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
-        <input
-          type="text"
-          placeholder="Search for dishes..."
-          className="px-2 py-2 rounded-xl border w-midum sm:w-1/1"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-
-        <select
-          className="px-4 py-2 rounded-xl border w-full sm:w-1/3"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.name}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
+      <div className="flex justify-center gap-4 mb-8 flex-wrap">
+        {categories.map((cat) => (
+          <button
+            key={cat.name}
+            onClick={() => setSelectedCategory(cat.name === selectedCategory ? '' : cat.name)}
+            className={`px-6 py-2 rounded-full text-lg font-semibold transition-colors ${
+              selectedCategory === cat.name
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-200 hover:bg-gray-300'
+            }`}
+          >
+            {cat.name}
+          </button>
+        ))}
       </div>
 
-      {filteredItems.length === 0 ? (
-        <p className="text-center text-gray-500">No items match your search.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item) => (
-            <div key={item.id} className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition">
-              <h2 className="text-xl font-semibold">{item.name}</h2>
-              <p className="text-gray-600 mb-2">{item.description}</p>
-              <div className="text-lg font-bold text-green-600">${item.price.toFixed(2)}</div>
-            </div>
-          ))}
+      {selectedCategory && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-center mb-4">{selectedCategory}</h2>
+          <div className="space-y-6">
+            {categories
+              .find((cat) => cat.name === selectedCategory)
+              .dishes
+              .map((dish, index) => (
+                <div key={index} className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition flex gap-4">
+                  <img 
+                    src={dish.image} 
+                    alt={dish.name} 
+                    className="w-32 h-32 object-cover rounded-lg" 
+                  />
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-semibold">{dish.name}</h3>
+                      <span className="text-lg font-bold text-green-600">
+                        {dish.price.toFixed(2)}€
+                      </span>
+                    </div>
+                    <p className="text-gray-600 mb-2 text-sm">{dish.description}</p>
+
+                    {dish.sizes && (
+                      <div className="mb-2">
+                        <p className="text-sm text-gray-500">
+                          {dish.sizes.map(s => `${s.name}: ${s.price.toFixed(2)}€`).join(' • ')}
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="flex gap-2">
+                      {dish.spicy && (
+                        <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+                          SPICY
+                        </span>
+                      )}
+                      {dish.vegetarian && (
+                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                          VEGETARIAN
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </div>
