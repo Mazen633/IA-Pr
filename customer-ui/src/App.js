@@ -10,6 +10,10 @@ import {Header} from './comments/shared/Header';
 import Services from './comments/shared/Services';
 import ServicesPage from './Pages/ServicesPage';
 import CategoryMenu from './Pages/CategoryMenu';
+import Recentorder from './Pages/Recentorder';
+import OrderCard from './Pages/ordercard'; // حسب مسارك
+import TableCard from './Pages/TableCard'; // تأكد من المسار الصحيح
+import Table from './Pages/TablePage';
 
 
 
@@ -25,7 +29,10 @@ function App() {
         <Route path="/services" element={<Services />} /> 
         <Route path="/services" component={ServicesPage} />
         <Route path="/menu/:category" element={<CategoryMenu />} />
-   
+    ``   <Route path="/recent-order" element={<Recentorder />} />
+         <Route path="/order-card" element={<OrderCard />} /> 
+         <Route path="/table" element={<Table />} />
+         <Route path="/table-card" element={<TableCard />} />
       </Routes>
     </Router>
   );

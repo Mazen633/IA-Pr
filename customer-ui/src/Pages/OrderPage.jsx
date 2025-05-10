@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const OrderPage = () => {
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState([]);
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
@@ -86,17 +89,27 @@ const OrderPage = () => {
 
   const handleSubmitOrder = e => {
     e.preventDefault();
-    alert('Order placed successfully!');
-    console.log('Order:', { cart, customerInfo, total });
+
+    const newOrder = {
+      cart,
+      customerInfo,
+      total,
+      timestamp: new Date().toLocaleString()
+    };
+
+    const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    localStorage.setItem('orders', JSON.stringify([...existingOrders, newOrder]));
+
     setCart([]);
     setCustomerInfo({ name: '', phone: '', address: '', notes: '' });
+
+    navigate('/order-card');
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-6">Order Food</h1>
 
-      {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-4">
         {categories.map(category => (
           <button
@@ -110,7 +123,6 @@ const OrderPage = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 items-start">
-        {/* Left Side - Menu */}
         <div className="flex-1 space-y-4">
           {filteredItems.map(item => (
             <div key={item.id} className="bg-white rounded shadow-md p-4 flex">
@@ -128,7 +140,6 @@ const OrderPage = () => {
           ))}
         </div>
 
-        {/* Right Side - Cart */}
         <div className="w-full lg:w-1/3">
           <div className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-bold mb-4">Your Order</h2>
@@ -162,11 +173,18 @@ const OrderPage = () => {
               <textarea name="notes" value={customerInfo.notes} onChange={handleInputChange} placeholder="Order Notes (optional)" rows={2} className="w-full p-2 border rounded" />
               <button type="submit" className="w-full bg-green-600 text-white py-2 rounded font-bold" disabled={cart.length === 0}>Place Order</button>
             </form>
+
+            {/* زر الانتقال لصفحة الطلبات */}
+            <button
+              onClick={() => navigate('/order-card')}
+              className="w-full bg-blue-600 text-white py-2 rounded font-bold mt-2"
+            >
+              Go to Order Card
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Size Options Modal */}
       {showSizeOptions && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-80">
@@ -192,3 +210,4 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
+
