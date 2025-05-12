@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios, { Axios } from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +9,6 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const user = axios.post("https://localhost:53887",{email : email, password : password })
 
     
     if (email === 'Mazen@gmail.com' && password === 'admin') {
