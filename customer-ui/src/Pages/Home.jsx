@@ -3,6 +3,8 @@ import { Link, useLocation} from 'react-router-dom';
 import FooterNav from '../comments/shared/FooterNav';
 import Services from '../comments/shared/Services';
 
+
+
 const Home = () => {
   const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState('all');
